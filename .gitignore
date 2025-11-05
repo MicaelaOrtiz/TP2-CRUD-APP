@@ -1,0 +1,23 @@
+# Dependencies
+/node_modules
+/android
+/ios
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+/coverage
+
+# Expo/React Native-specific
+.expo/
+/dist/
+.env
+.env.local
+.DS_Store
+*.apk
+*.aab
+
+# Metro/Bundler Cache
+/cache
+/web-build
