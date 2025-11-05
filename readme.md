@@ -1,4 +1,4 @@
-# 🚀Trabajo Práctico 2: Sistema CRUD con SQLite y React Native
+# Trabajo Práctico 2: Sistema CRUD con SQLite y React Native
 
 Este proyecto implementa un sistema CRUD (Crear, Leer, Actualizar, Eliminar) completo para la gestión de un inventario básico, ytiliza Expo y SQLite para garantizar la persistencia de los datos.
 
