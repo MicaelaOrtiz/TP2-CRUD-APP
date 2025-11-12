@@ -44,7 +44,7 @@ const FormScreen = ({ navigation, route }) => {
     try {
       if (itemToEdit) {
         await updateItem(itemToEdit.id, nombre.trim(), descripcion.trim(), cantidadNum);
-        Alert.alert('✅ Éxito', 'Registro actualizado satisfactoriamente.', [
+        Alert.alert(' Éxito', 'Registro actualizado satisfactoriamente.', [
             { text: 'OK', onPress: () => navigation.goBack() },
         ]);
       } else {
