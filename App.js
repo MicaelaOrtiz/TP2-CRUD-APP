@@ -5,10 +5,10 @@ import List from './tp2/List';
 import Form from './tp2/Form';
 import Login from './tp2/Login';
 import AdminUsers from './tp2/AdminUsers';
-import UserForm from './tp2/UserForm';
+import UserForm from './component/UserForm';
 import MoviesHome from './tp1/homescreen'; 
 import MovieDetail from './tp1/details';
-import { initDb } from 'Database';
+import { initDb } from './service/Database';
 import { Text } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 

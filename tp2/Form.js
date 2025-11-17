@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TextInput, Button, StyleSheet, Alert, ScrollView, TouchableOpacity } from 'react-native';
-import { createItem, updateItem } from '../Database'; 
+import { createItem, updateItem } from '../service/Database'; 
 import { Ionicons } from '@expo/vector-icons';
 
 const PRIMARY_COLOR = '#b4cae0ff';

@@ -21,3 +21,6 @@ yarn-error.log*
 # Metro/Bundler Cache
 /cache
 /web-build
+node_modules/.cache
+node_modules
+

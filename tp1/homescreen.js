@@ -3,6 +3,7 @@ import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
 import MovieCard from './moviecard';
 import { API_KEY } from '@env';
 import { LinearGradient } from 'expo-linear-gradient'; 
+import Header from "../component/Header";
 
 const MOVIES = [597];
 
@@ -50,6 +51,7 @@ export default function HomeScreen({ navigation }) {
       style={styles.container}
       start={{ x: 0.5, y: 0 }}
       end={{ x: 0.5, y: 1 }}
+      
     >
       <FlatList
         data={movies}
@@ -57,7 +59,7 @@ export default function HomeScreen({ navigation }) {
         renderItem={({ item }) => (
           <MovieCard
             movie={item}
-            onPress={() => navigation.navigate('Detail', { movieId: item.id })}
+            onPress={() => navigation.navigate('MovieDetail', { movieId: item.id })}
           />
         )}
       />

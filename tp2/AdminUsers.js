@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { View, FlatList, Text, Button, Alert, StyleSheet } from 'react-native';
-import { listUsers, deleteUser } from '../db';
+import { View, FlatList, Button, Alert, StyleSheet } from 'react-native';
+import { listUsers, deleteUser } from '../service/Database';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useIsFocused } from '@react-navigation/native';
+import UserItem from "../component/UserItem";
 
 export default function AdminUsers({ navigation }) {
   const [users, setUsers] = useState([]);
   const isFocused = useIsFocused();
 
-  useEffect(() => { if (isFocused) load(); }, [isFocused]);
+  useEffect(() => { 
+    if (isFocused) load(); 
+  }, [isFocused]);
 
   const load = async () => {
     const all = await listUsers();
@@ -24,61 +27,68 @@ export default function AdminUsers({ navigation }) {
     }
     Alert.alert('Confirmar', 'Eliminar usuario?', [
       { text: 'Cancelar' },
-      { text: 'Eliminar', style:'destructive', onPress: async () => {
-        await deleteUser(id);
-        Alert.alert('Éxito', 'Usuario eliminado correctamente');
-        load();
-      }}
+      { 
+        text: 'Eliminar', 
+        style: 'destructive', 
+        onPress: async () => {
+          await deleteUser(id);
+          Alert.alert('Éxito', 'Usuario eliminado correctamente');
+          load();
+        } 
+      }
     ]);
+  }
+  
+  const handleEdit = (user) => {
+    navigation.navigate('UserForm', { user });
+  };
+
+  const handleDelete = (id) => {
+    confirmDelete(id);
   };
 
   return (
     <View style={styles.container}>
-      <Button title="➕ Nuevo usuario" onPress={() => navigation.navigate('UserForm')} color="#4A90E2" />
+      <Button 
+        title="➕ Nuevo usuario" 
+        onPress={() => navigation.navigate('UserForm')} 
+        color="#4A90E2" 
+      />
+
       <FlatList
         data={users}
         keyExtractor={item => item.id.toString()}
         renderItem={({ item }) => (
-          <View style={styles.row}>
-            <View>
-              <Text style={styles.name}>{item.nombre}</Text>
-              <Text style={styles.small}>{item.username} • {item.role}</Text>
-            </View>
-            <View style={styles.actions}>
-              <Button title="✏️" onPress={() => navigation.navigate('UserForm', { user: item })} />
-              <Button title="🗑️" color="#E74C3C" onPress={() => confirmDelete(item.id)} />
-            </View>
-          </View>
+          <UserItem
+            user={{
+              id: item.id,
+              name: item.nombre,
+              email: `${item.username} • ${item.role}`
+            }}
+            onEdit={() => handleEdit(item)}
+            onDelete={() => handleDelete(item.id)}
+          />
         )}
       />
-      <View style={{height:20}}/>
-      <Button title="Cerrar sesión" color="#777" onPress={async () => { await AsyncStorage.removeItem('@session_user'); navigation.replace('Login'); }} />
+
+      <View style={{ height: 20 }} />
+
+      <Button 
+        title="Cerrar sesión" 
+        color="#777" 
+        onPress={async () => {
+          await AsyncStorage.removeItem('@session_user');
+          navigation.replace('Login');
+        }} 
+      />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,padding:20, 
-    backgroundColor:'#000'},
-
-  row:{
-    flexDirection:'row', 
-    justifyContent:'space-between', 
-    padding:12, 
-    backgroundColor:'#222', 
-    marginTop:10, 
-    borderRadius:8},
-
-  name:{
-    color:'#fff', 
-    fontWeight:'600'},
-
-  small:{
-    color:'#ccc', 
-    fontSize:12},
-
-  actions:{
-    flexDirection:'row', 
-    gap:8}
+  container: {
+    flex: 1, 
+    padding: 20, 
+    backgroundColor: '#000'
+  },
 });

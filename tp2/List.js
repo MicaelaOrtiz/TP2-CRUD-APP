@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, StyleSheet, FlatList, Alert, TouchableOpacity } from 'react-native';
-import { initDatabase, getItems, deleteItem } from '../Database'; 
+import { initDatabase, getItems, deleteItem } from '../service/Database'; 
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons'; 
 
@@ -50,7 +50,7 @@ const ListScreen = ({ navigation }) => {
         headerRight: () => (
             <TouchableOpacity 
                 style={{ marginRight: 15 }}
-                onPress={() => navigation.navigate('Formulario')}>
+                onPress={() => navigation.navigate('Form')}>
                 <Ionicons name="add-circle" size={32} color="#fff" />
             </TouchableOpacity>
         ),
@@ -78,7 +78,7 @@ const ListScreen = ({ navigation }) => {
   );
   
   const handleEdit = (item) => {
-    navigation.navigate('Formulario', { itemToEdit: item });
+    navigation.navigate('Form', { itemToEdit: item });
   };
   
   const handleDelete = (item) => {
